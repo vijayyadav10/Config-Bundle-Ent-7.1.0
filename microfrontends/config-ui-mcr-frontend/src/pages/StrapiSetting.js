@@ -6,7 +6,7 @@ export default class StrapiSetting extends Component {
         return (
             // <div className="container-fluid ml-mt">
             <div className="container-fluid">
-                <StrapiSettingForm />
+                <StrapiSettingForm apiURL={this.props.apiURL}/>
             </div>
         )
     }

@@ -4,7 +4,7 @@ import StrapiSetting from './pages/StrapiSetting';
 export default class App extends Component {
   constructor(props) {
     super(props);
-
+    this.state = {apiUrl: null};
   }
 
   componentDidMount = () => {
@@ -25,11 +25,15 @@ export default class App extends Component {
       document.head.appendChild(link2);
     }
     // <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css"></link>
+
+    const { systemParams,  } = this.props.config || {};
+    const { api } = systemParams || {};
+    this.setState({apiUrl: api});
   }
 
   render() {
     return (
-      <StrapiSetting />
+      <StrapiSetting apiURL={this.state.apiUrl}/>
     )
   }
 }

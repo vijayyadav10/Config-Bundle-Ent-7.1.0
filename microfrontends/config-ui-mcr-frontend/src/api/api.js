@@ -6,8 +6,9 @@ const appUrl = `${process.env.REACT_APP_PUBLIC_URL}`;
  * @param {*} data 
  * @returns 
  */
-export const saveStrapiConfiguration = async (data) => {
-    const result = await axios.post(appUrl, data, addAuthorizationRequestConfig())
+export const saveStrapiConfiguration = async (data, url) => {
+    let configUrl = `${url}/api/config/`;
+    const result = await axios.post(configUrl, data, addAuthorizationRequestConfig())
         .then((res) => {
             return res;
         }).catch((e) => {
@@ -20,8 +21,9 @@ export const saveStrapiConfiguration = async (data) => {
  * Request to get strapi configurations
  * @returns 
  */
-export const getStrapiConfiguration = async () => {
-    const result = await axios.get(appUrl, addAuthorizationRequestConfig())
+export const getStrapiConfiguration = async (url) => {
+    let configUrl = `${url}/api/config/`;
+    const result = await axios.get(configUrl, addAuthorizationRequestConfig())
         .then((res) => {
             return res;
         }).catch((e) => {

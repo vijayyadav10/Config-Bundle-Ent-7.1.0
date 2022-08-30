@@ -48,9 +48,15 @@ export default class StrapiSettingForm extends Component {
         this.callGetStrapiConfiguration();
     }
 
+    componentDidUpdate = async (prevProps, prevState) => {
+        if (prevProps.apiURL !== this.props.apiURL) {
+            this.callGetStrapiConfiguration(this.props.apiURL['int-api']['url']);
+        }
+    }
+
     async callSaveStrapiConfiguration(payload) {
         this.setState({ loadingData: true });
-        const { data, isError } = await saveStrapiConfiguration(payload);
+        const { data, isError } = await saveStrapiConfiguration(payload, this.props.apiURL['int-api']['url']);
         if (data && data.data && !isError) {
             this.setState({
                 baseUrl: data.data.baseUrl,
@@ -70,9 +76,9 @@ export default class StrapiSettingForm extends Component {
         setTimeout(() => this.setState({ showNotification: false }), 3000);
     }
 
-    async callGetStrapiConfiguration() {
+    async callGetStrapiConfiguration(url) {
         this.setState({ loadingData: true });
-        const { data, isError } = await getStrapiConfiguration();
+        const { data, isError } = await getStrapiConfiguration(url);
         if (data && data.data && !isError) {
             this.setState({
                 baseUrl: data.data.baseUrl
